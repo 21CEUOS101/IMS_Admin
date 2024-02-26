@@ -62,3 +62,14 @@ export const deleteAdmin = async (id) => {
 
   return data;
 };
+
+// get recent sales
+export const getRecentSales = async () => {
+  const data = await Axios.get(`${url}/api/admin/analytics/recent-sales`, config).then(
+    (response) => {
+      return response.data;
+    }
+  );
+
+  return data;
+};

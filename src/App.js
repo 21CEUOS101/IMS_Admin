@@ -22,7 +22,7 @@ import { EmployeeProfile } from "./Pages/EmployeeProfile";
 import { Login as Login_F } from "./Services/AuthService";
 import Login from "./Pages/Login";
 import AddEmployee from "./Pages/AddEmployee";
-import { AddProduct } from "./Pages/Tables/AddProduct";
+import { AddProduct } from "./Pages/AddProduct";
 import UpdateEmployee from "./Pages/UpdateEmployee";
 import NotFound from "./Pages/NotFound";
 import { ProductPage } from "./Pages/ProductPage";

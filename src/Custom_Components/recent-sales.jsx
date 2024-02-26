@@ -1,68 +1,42 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { getRecentSales } from "../Services/AdminService";
+import { useEffect, useState } from "react";
 
   
-  export function RecentSales() {
+export function RecentSales() {
+    
+  const [recentSales, setRecentSales] = useState([]);
+
+  const getData = async () => {
+    await getRecentSales().then((response) => {
+      setRecentSales(response);
+    });
+  };
+
+  useEffect(() => {
+    try {
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
     return (
       <div className="space-y-8">
-        <div className="flex items-center">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>OM</AvatarFallback>
-          </Avatar>
-          <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">Olivia Martin</p>
-            <p className="text-sm text-muted-foreground">
-              olivia.martin@email.com
-            </p>
-          </div>
-          <div className="ml-auto font-medium">+$1,999.00</div>
-        </div>
-        <div className="flex items-center">
-          <Avatar className="flex h-9 w-9 items-center justify-center space-y-0 border">
-            <AvatarImage src="/avatars/02.png" alt="Avatar" />
-            <AvatarFallback>JL</AvatarFallback>
-          </Avatar>
-          <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">Jackson Lee</p>
-            <p className="text-sm text-muted-foreground">jackson.lee@email.com</p>
-          </div>
-          <div className="ml-auto font-medium">+$39.00</div>
-        </div>
-        <div className="flex items-center">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/03.png" alt="Avatar" />
-            <AvatarFallback>IN</AvatarFallback>
-          </Avatar>
-          <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">Isabella Nguyen</p>
-            <p className="text-sm text-muted-foreground">
-              isabella.nguyen@email.com
-            </p>
-          </div>
-          <div className="ml-auto font-medium">+$299.00</div>
-        </div>
-        <div className="flex items-center">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/04.png" alt="Avatar" />
-            <AvatarFallback>WK</AvatarFallback>
-          </Avatar>
-          <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">William Kim</p>
-            <p className="text-sm text-muted-foreground">will@email.com</p>
-          </div>
-          <div className="ml-auto font-medium">+$99.00</div>
-        </div>
-        <div className="flex items-center">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/05.png" alt="Avatar" />
-            <AvatarFallback>SD</AvatarFallback>
-          </Avatar>
-          <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">Sofia Davis</p>
-            <p className="text-sm text-muted-foreground">sofia.davis@email.com</p>
-          </div>
-          <div className="ml-auto font-medium">+$39.00</div>
-        </div>
+        {recentSales.map((sale, index) => {
+          return (
+            <div className="flex items-center">
+              <div className="ml-4 space-y-1">
+                <p className="text-sm font-medium leading-none">{sale?.customerId ? sale.customerId : "N/A"}</p>
+                <p className="text-sm text-muted-foreground">
+                  {sale?.date ? sale.date : "N/A"}
+                </p>
+              </div>
+              <div className="ml-auto font-medium">{sale?.totalAmount ? sale.totalAmount : "N?A"}</div>
+              <div className="ml-auto font-medium">{sale?.profit ? sale.profit : "N?A"}</div>
+            </div>
+          ); 
+        })}
       </div>
     )
   }

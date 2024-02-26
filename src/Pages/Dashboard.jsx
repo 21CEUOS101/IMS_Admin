@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminTable from './Tables/AdminTable'
 import {
     Card,
@@ -22,6 +22,7 @@ export const metadata = {
 }
 
 export default function Dashboard() {
+
   return (
     <>
       <div className="md:hidden">
@@ -160,9 +161,6 @@ export default function Dashboard() {
                 <Card className="col-span-3">
                   <CardHeader>
                     <CardTitle>Recent Sales</CardTitle>
-                    <CardDescription>
-                      You made 265 sales this month.
-                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <RecentSales />

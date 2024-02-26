@@ -18,16 +18,17 @@ export function UserProfile() {
   const [refresh, setRefresh] = useState(false);
 
   const getData = async () => {
-    await getEmployeeById(user_id).then((response) => {
-      setData(response);
-    });
+    if (user_id) {
+      await getEmployeeById(user_id).then((response) => {
+        setData(response);
+      });
+    }
   };
 
   useEffect(() => {
     try {
       getData();
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
   }, [refresh]);
@@ -76,14 +77,17 @@ export function UserProfile() {
               </>
             )}
             <div className="w-full">
-              <EditProfile employee={data} setRefresh={setRefresh} refresh={refresh} />
+              <EditProfile
+                employee={data}
+                setRefresh={setRefresh}
+                refresh={refresh}
+              />
             </div>
           </div>
         </div>
       </HoverCardContent>
     </HoverCard>
-  ) :
-  (
+  ) : (
     <div className="flex items-center justify-center h-96">
       <CalendarIcon className="w-12 h-12 text-muted-foreground" />
     </div>

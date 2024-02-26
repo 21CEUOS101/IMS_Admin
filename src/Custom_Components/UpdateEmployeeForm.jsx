@@ -53,8 +53,6 @@ export function UpdateEmployeeForm() {
 
     const id = useParams().id;
 
-    const [data , setData] = React.useState();
-
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -95,21 +93,27 @@ export function UpdateEmployeeForm() {
             }
           }
 
-        console.log(values);
-        // remove null values
-        for (let key in values) {
+          // remove null values
+          for (let key in values) {
             if (values[key] === "") {
-                delete values[key];
+              delete values[key];
             }
-        }
-
+          }
+          
+          console.log(values);
         // updateEmployee(values);
         form.reset();
   }
     
     const getData = async () => {
         await getEmployeeById(id).then((response) => {
-            setData(response);
+            // set form values only if data is available for each field also make it conditional using ternary operator
+            form.setValue("name", response?.name ? response.name : "");
+            form.setValue("email", response?.email ? response.email : "");
+            form.setValue("phone", response?.phone ? response.phone : "");
+            form.setValue("role", response?.role ? response.role : "");
+            form.setValue("pincode", response?.pincode ? response.pincode : "");
+            form.setValue("warehouseId", response?.warehouseId ? response.warehouseId : "");
         });
     };
 
@@ -124,7 +128,7 @@ export function UpdateEmployeeForm() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card className="w-[350px]">
           <CardHeader>
-            <CardTitle>Update {data?.role}</CardTitle>
+            <CardTitle>Update {form.getValues("role")}</CardTitle>
             <CardDescription>
               Good {time}, User! Let's create your account.
             </CardDescription>

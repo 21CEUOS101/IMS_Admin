@@ -42,3 +42,17 @@ export const createProduct = async (product) => {
     return { success: false };
   }
 };
+
+export const updateProduct = async (id, product) => {
+  try {
+    const data = await Axios.post(`${url}/api/product/${id}`, product, config).then(
+      (response) => {
+        return { ...response.data, success: true };
+      }
+    );
+
+    return data;
+  } catch (e) {
+    return { success: false };
+  }
+};
