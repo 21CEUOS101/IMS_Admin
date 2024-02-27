@@ -45,10 +45,9 @@ export const createWManager = async (wmanager) => {
 export const updateWManager = async (wmanager , id) => {
             
     try {
-        const data = await Axios.put(`${url}/api/wmanager/${id}`, wmanager, config).then((response) => {
+        const data = await Axios.post(`${url}/api/wmanager/${id}`, wmanager, config).then((response) => {
             return response.data;
         });
-        
         return {...data, role : "wmanager" , success : true};
     }
     catch (error) {

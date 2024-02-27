@@ -27,9 +27,6 @@ const formSchema = z.object({
     message: "Name must be at least 2 characters.",
   }),
   expiry_date: z.string().optional(),
-  price: z.string().min(2, {
-    message: "Price must be at least 2 characters.",
-  }),
   supplierId: z.string().min(2, {
     message: "Supplier Id must be at least 2 characters.",
   }),
@@ -45,7 +42,6 @@ export function AddProduct() {
     defaultValues: {
       name: "",
       expiry_date: "",
-      price: "",
       supplierId: "",
       tax: 0,
       whole_sale_price: 0,

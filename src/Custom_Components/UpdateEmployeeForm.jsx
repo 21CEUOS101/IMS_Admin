@@ -101,7 +101,7 @@ export function UpdateEmployeeForm() {
           }
           
           console.log(values);
-        // updateEmployee(values);
+        updateEmployee(values);
         form.reset();
   }
     
