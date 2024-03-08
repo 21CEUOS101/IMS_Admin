@@ -9,6 +9,7 @@ export function RecentSales() {
 
   const getData = async () => {
     await getRecentSales().then((response) => {
+      console.log(response);
       setRecentSales(response);
     });
   };
@@ -25,16 +26,24 @@ export function RecentSales() {
       <div className="space-y-8">
         {recentSales.map((sale, index) => {
           return (
-            <div className="flex items-center">
-              <div className="ml-4 space-y-1">
-                <p className="text-sm font-medium leading-none">{sale?.customerId ? sale.customerId : "N/A"}</p>
-                <p className="text-sm text-muted-foreground">
-                  {sale?.date ? sale.date : "N/A"}
-                </p>
-              </div>
-              <div className="ml-auto font-medium">{sale?.totalAmount ? sale.totalAmount : "N?A"}</div>
-              <div className="ml-auto font-medium">{sale?.profit ? sale.profit : "N?A"}</div>
-            </div>
+            <div className=" shadow-md rounded-lg p-4">
+  <div className="flex items-center">
+    <div className="border-gray-200 bg-blue-50 text-black font-semibold px-3 py-1 rounded-t-lg">Order Id: {sale?.orderId ? sale.orderId : "N/A"}</div>
+  </div>
+  <div className="border-b my-2"></div>
+  <div className="flex items-center">
+    <div className="flex-grow space-y-1">
+      <p className="text-sm font-mono leading-none">Customer Id: {sale?.customerId ? sale.customerId : "N/A"}</p>
+      <p className="text-sm text-muted-foreground">{sale?.date ? sale.date : "N/A"}</p>
+    </div>
+    <div className="flex flex-col items-end ml-4">
+      <p className="font-mono text-sm">Amount: {sale?.totalAmount ? sale.totalAmount : "N/A"}</p>
+      <p className="font-mono text-sm">Profit: {sale?.profit ? sale.profit : "N/A"}</p>
+    </div>
+  </div>
+</div>
+
+
           ); 
         })}
       </div>

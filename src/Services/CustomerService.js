@@ -45,7 +45,7 @@ export const createCustomer = async (customer) => {
 export const updateCustomer = async (customer , id) => {
                 
     try {
-        const data = await Axios.put(`${url}/api/customer/${id}`, customer, config).then((response) => {
+        const data = await Axios.post(`${url}/api/customer/${id}`, customer, config).then((response) => {
             return response.data;
         });
         

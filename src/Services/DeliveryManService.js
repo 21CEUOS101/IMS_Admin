@@ -48,7 +48,7 @@ export const createDeliveryMan = async (deliveryman, id) => {
 
 export const updateDeliveryMan = async (deliveryman, id) => {
   try {
-    const data = await Axios.put(
+    const data = await Axios.post(
       `${url}/api/deliveryman/${id}`,
       deliveryman,
       config

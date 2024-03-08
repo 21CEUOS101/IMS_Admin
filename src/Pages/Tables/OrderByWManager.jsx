@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-import { getOrders } from "../../Services/OrderService";
-import Table from "../Custom_Components/Table";
+import { getOrders, getWarehouseOrders } from "../../Services/OrderService";
+import { DataTable } from "../../Orders/data-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
@@ -64,10 +64,10 @@ export const columns = [
       const { id } = original;
       return (
         <div className=" p-0 m-0 flex items-center justify-center gap-x-4">
-          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/view-order/return-order/${row.getValue("id")}`}>
+          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/view-order/order/${row.getValue("id")}`}>
             View
           </Link>
-          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/update/return-order/${row.getValue("id")}`}>
+          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/update/order/${row.getValue("id")}`}>
             Update
           </Link>
         </div>
@@ -76,12 +76,11 @@ export const columns = [
   },
 ];
 
-
-const OrderTable = () => {
+const OrderByWManager = () => {
   const [data, setData] = useState([]);
 
   const getAllOrders = async () => {
-    const response = await getOrders()
+    const response = await getWarehouseOrders()
       .then((response) => {
         setData(response);
       })
@@ -96,9 +95,17 @@ const OrderTable = () => {
 
   return (
     <>
-      <Table data={data} columns={columns} filterField={"status"} />
+      {data !== null && (
+        <div className="flex-col">
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            <div className="container mx-auto py-10">
+              <DataTable columns={columns} data={data} filterField={"status"} />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
-export default OrderTable;
+export default OrderByWManager;

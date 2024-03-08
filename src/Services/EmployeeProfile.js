@@ -33,9 +33,7 @@ export async function getEmployeeById(id) {
 export async function updateEmployeeById(id , values) {
     
     if(id === null) return null;
-    console.log(id);
-    console.log("Inside updateEmployeeById");
-    console.log(values);
+    
     let data = null;
     
     if (id[0] === "a") {

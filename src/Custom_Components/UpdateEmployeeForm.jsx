@@ -211,6 +211,7 @@ export function UpdateEmployeeForm() {
                           <SelectItem value="wmanager">
                             WareHouse Manager
                           </SelectItem>
+                          <SelectItem value="customer">Customer</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

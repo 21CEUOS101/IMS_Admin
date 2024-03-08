@@ -1,7 +1,8 @@
 import Table from '../../Custom_Components/Table'
 import React, { useEffect, useState } from 'react'
 import { getOrders } from '../../Services/OrderService'
-import { getRSOs } from '../../Services/RSOService'
+import { getSupplyOrderBySupplierId, getSupplyOrders } from '../../Services/SupplyOrderService'
+import { useParams } from 'react-router-dom'
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
@@ -64,10 +65,10 @@ export const columns = [
       const { id } = original;
       return (
         <div className=" p-0 m-0 flex items-center justify-center gap-x-4">
-          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/view-order/return-supply-order/${row.getValue("id")}`}>
+          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/view-order/supply-order/${row.getValue("id")}`}>
             View
           </Link>
-          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/update/return-supply-order/${row.getValue("id")}`}>
+          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/update/supply-order/${row.getValue("id")}`}>
             Update
           </Link>
         </div>
@@ -76,12 +77,12 @@ export const columns = [
   },
 ];
 
-const RSOTable = () => {
-
+const SupplyOrderBySupplier = () => {
+    const id = useParams().id;
     const [data, setData] = useState([])
 
     const getAllOrders = async () => {
-        const response = await getRSOs().then((response) => {
+        const response = await getSupplyOrderBySupplierId(id).then((response) => {
             setData(response);
         }).catch((err) => {
             console.log(err);
@@ -99,4 +100,4 @@ const RSOTable = () => {
   );
 }
 
-export default RSOTable
+export default SupplyOrderBySupplier

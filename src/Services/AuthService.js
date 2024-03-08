@@ -30,3 +30,30 @@ export const Login = async ({ username, password }) => {
     return { success: false };
   }
 };
+
+export const Logout = async () => {
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("email");
+  localStorage.removeItem("role");
+  localStorage.removeItem("id");
+  localStorage.removeItem("password");
+};
+
+// change password
+export const change_Password = async (data) => {
+  const token = localStorage.getItem("jwt");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  };
+
+  try {
+    const response = await Axios.post(`${url}/auth/change-password`, data, config);
+    return response.data;
+  } catch (e) {
+    return { success: false };
+  }
+};

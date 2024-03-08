@@ -86,13 +86,17 @@ export function EmployeeProfile() {
             <CardContent>{data}</CardContent>
             {employee?.role !== "Customer" && employee?.role !== "Admin" && (
               <CardFooter className="flex justify-center space-x-2">
-                {employee?.role === "supplier" && (
-                  <Button variant="outline">Check Supply Orders</Button>
-                )}
                 {employee?.role === "wmanager" && (
-                  <Button variant="outline">Go to WareHouse</Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      navigate(`/view/warehouse/${employee?.warehouse_id}`);
+                    }}
+                  >
+                    Go to WareHouse
+                  </Button>
                 )}
-                {(employee?.role === "deliveryMan" ||
+                {(employee?.role === "deliveryman" ||
                   employee?.role === "customer") && (
                   <Button
                     variant="outline"
@@ -102,9 +106,20 @@ export function EmployeeProfile() {
                   >
                     Check Orders
                   </Button>
-                )}
-                {(employee?.role === "deliveryMan" ||
-                  employee?.role === "customer") && (
+                  )}
+                {
+                  employee?.role === "deliveryman" && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        navigate(`/view/${employee?.role}/${id}/ongoing-order`);
+                      }}
+                    >
+                      Check Ongoing Order
+                    </Button>
+                  )
+                }
+                {(employee?.role === "customer") && (
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -113,6 +128,28 @@ export function EmployeeProfile() {
                   >
                     Check Return Orders
                   </Button>
+                )}
+                {employee?.role === "supplier" && (
+                  <>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        navigate(`/view/${employee?.role}/${id}/supply-orders`);
+                      }}
+                      className="text-wrap h-fit"
+                    >
+                      Check Supply Orders
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        navigate(`/view/${employee?.role}/${id}/return-supply-orders`);
+                      }}
+                      className="w-32 text-wrap h-fit"
+                    >
+                      Check Return Supply Orders
+                    </Button>
+                  </>
                 )}
               </CardFooter>
             )}

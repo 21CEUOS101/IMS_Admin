@@ -28,6 +28,14 @@ import NotFound from "./Pages/NotFound";
 import { ProductPage } from "./Pages/ProductPage";
 import { UpdateProduct } from "./Custom_Components/UpdateProduct";
 import AllCustomerOrders from "./Pages/Customer/AllCustomerOrders";
+import { ViewWarehouse } from "./Pages/ViewWarehouse";
+import ReturnOrderByWManager from "./Pages/Tables/ReturnOrderByWManager";
+import ReturnOrderByCustomer from "./Pages/Tables/ReturnOrderByCustomer";
+import OrderByWManager from "./Pages/Tables/OrderByWManager";
+import SupplyOrderBySupplier from "./Pages/Supplier/SupplyOrderBySupplier";
+import RSOBySupplier from "./Pages/Supplier/RSOBySupplier";
+import W2WOrderByWManager from "./Pages/WManager/W2WOrderByWManager";
+import { ViewOrder } from "./Pages/ViewOrder";
 
 export const AppContext = createContext();
 
@@ -81,18 +89,14 @@ function App() {
               <Route path="/update">
                 <Route path="employee/:id" element={<UpdateEmployee />} />
                 <Route path="order/:id" element={<h1>Update Order</h1>} />
-                <Route path="return-order/:id" element={<h1>Update Return Order</h1>} />
-                <Route path="supply-order/:id" element={<h1>Update Supply Order</h1>} />
-                <Route path="return-supply-order/:id" element={<h1>Update Return Supply Order</h1>} />
-                <Route path="w2wOrder/:id" element={<h1>Update W2W Order</h1>} />
                 <Route path="product/:id" element={<UpdateProduct/>} />
               </Route>
               <Route path="/view" >
+                <Route path="warehouse/:id" element={<ViewWarehouse/>} />
                 <Route path="supplier" >
-                  <Route path=":id" element={<EmployeeProfile />} >
-                    <Route path="supply-orders" element={<h1>Supplier Supply Orders</h1>} />
-                    <Route path="return-supply-orders" element={<h1>Supplier Return Supply Orders</h1>} />
-                  </Route>
+                  <Route path=":id" element={<EmployeeProfile />} />
+                  <Route path=":id/supply-orders" element={<SupplyOrderBySupplier/>} />
+                  <Route path=":id/return-supply-orders" element={<RSOBySupplier/>} />
                 </Route>
                 <Route path="delivery-man" >
                   <Route path=":id" element={<EmployeeProfile />} >
@@ -100,24 +104,21 @@ function App() {
                   </Route>
                 </Route>
                 <Route path="wmanager" >
-                  <Route path=":id" element={<EmployeeProfile />} >
-                    <Route path="orders" element={<h1>Warehouse Manager Orders</h1>} />
-                    <Route path="return-orders" element={<h1>Warehouse Manager Return Orders</h1>} />
-                    <Route path="w2w-orders" element={<h1>Warehouse Manager W2W Orders</h1>} />
-                    <Route path="products" element={<h1>Warehouse Manager Products</h1>} />
-                    <Route path="supply-orders" element={<h1>Warehouse Manager Supply Orders</h1>} />
-                    <Route path="return-supply-orders" element={<h1>Warehouse Manager Return Supply Orders</h1>} />
-                  </Route>
+                  <Route path=":id" element={<EmployeeProfile />} />
+                  <Route path=":id/orders" element={<OrderByWManager/>} />
+                  <Route path=":id/w2w-orders" element={<W2WOrderByWManager/>} />
+                  <Route path=":id/return-orders" element={<ReturnOrderByWManager/>} />
                 </Route>
                 <Route path="customer" >
                     <Route path=":id" element={<EmployeeProfile />} />
                     <Route path=":id/orders" element={<AllCustomerOrders/>} />
-                    <Route path=":id/return-orders" element={<h1>Customer Return Orders</h1>} />
+                    <Route path=":id/return-orders" element={<ReturnOrderByCustomer/>} />
                 </Route>
                 <Route path="admin" >
                   <Route path=":id" element={<EmployeeProfile />} />
                 </Route>
               </Route>
+              <Route path="/view-order/:type/:id" element={<ViewOrder/>} />
               <Route path="/profile/:id" element={<EmployeeProfile />} />
               <Route path="/product/:id" element={< ProductPage/>} />
               <Route path="*" element={<NotFound/>} />

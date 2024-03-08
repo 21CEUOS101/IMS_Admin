@@ -23,6 +23,7 @@ import {
   FormMessage,
 } from "../components/ui/form";
 import { updateAdminProfile } from "../Services/EmployeeProfile";
+import { ChangePassword } from "./ChangePassword";
 
 const schema = z.object({
   name: z.string({
@@ -125,12 +126,14 @@ export function EditProfile({ employee , setRefresh , refresh }) {
             </div>
             <SheetFooter>
                 <div className="flex justify-between w-full">
-                  <Button variant={"outline"}>Change Password</Button>
                   <Button type="submit">Save changes</Button>
                 </div>
             </SheetFooter>
           </form>
         </Form>
+          <div className=" p-4 flex justify-center">
+          <ChangePassword />
+        </div>
         </div>
       </SheetContent>
     </Sheet>

@@ -1,7 +1,8 @@
 import Table from '../../Custom_Components/Table'
 import React, { useEffect, useState } from 'react'
 import { getOrders } from '../../Services/OrderService'
-import { getRSOs } from '../../Services/RSOService'
+import { getRSOBySupplierId, getRSOs } from '../../Services/RSOService'
+import { useParams } from 'react-router-dom'
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
@@ -76,12 +77,12 @@ export const columns = [
   },
 ];
 
-const RSOTable = () => {
-
+const RSOBySupplier = () => {
+    const id = useParams().id;
     const [data, setData] = useState([])
 
     const getAllOrders = async () => {
-        const response = await getRSOs().then((response) => {
+        const response = await getRSOBySupplierId(id).then((response) => {
             setData(response);
         }).catch((err) => {
             console.log(err);
@@ -99,4 +100,4 @@ const RSOTable = () => {
   );
 }
 
-export default RSOTable
+export default RSOBySupplier

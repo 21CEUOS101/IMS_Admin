@@ -1,32 +1,45 @@
-
-import React, { useEffect } from 'react'
-import AdminTable from './Tables/AdminTable'
+import React, { useEffect } from "react";
+import AdminTable from "./Tables/AdminTable";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-  } from "../components/ui/card";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 // import { CalendarDateRangePicker } from '../Custom_Components/date-range-picker';
-import { RecentSales } from '../Custom_Components/recent-sales';
-import { Button } from '../components/ui/button';
-import { Overview } from '../Custom_Components/overview';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-
-
-export const metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app built using the components.",
-}
+import { RecentSales } from "../Custom_Components/recent-sales";
+import { Button } from "../components/ui/button";
+import { Overview } from "../Custom_Components/overview";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../components/ui/tabs";
+import Axios from "axios";
 
 export default function Dashboard() {
+  const [analysis, setAnalysis] = React.useState();
+
+  const getAnalysis = async () => {
+    await Axios.get("http://localhost:3001/get-analytics").then((response) => {
+      setAnalysis(response.data);
+    });
+  };
+
+  useEffect(() => {
+    try {
+      getAnalysis();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <>
-      <div className="md:hidden">
-      </div>
+      <div className="md:hidden"></div>
       <div className="hidden flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
@@ -35,15 +48,6 @@ export default function Dashboard() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value="notifications" disabled>
-                Notifications
-              </TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -54,7 +58,7 @@ export default function Dashboard() {
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
+                      viewBox="40 -1 170 250"
                       fill="none"
                       stroke="currentColor"
                       strokeLinecap="round"
@@ -62,20 +66,20 @@ export default function Dashboard() {
                       strokeWidth="2"
                       className="h-4 w-4 text-muted-foreground"
                     >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                      <path fill="#010101" d="M153 23h41l15-23H55L40 23h26c27 0 52 2 62 25H55L40 71h91v1c0 17-14 43-60 43H48v22l90 113h41L85 133c39-2 75-24 80-62h29l15-23h-45c-1-9-5-18-11-25z"/>
                     </svg>
+                    {/* <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="40 -1 170 250"><path fill="#010101" d="M153 23h41l15-23H55L40 23h26c27 0 52 2 62 25H55L40 71h91v1c0 17-14 43-60 43H48v22l90 113h41L85 133c39-2 75-24 80-62h29l15-23h-45c-1-9-5-18-11-25z"/></svg> */}
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
-                    <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
-                    </p>
+                    <div className="text-2xl font-bold">
+                      {analysis?.total_revenue}
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Subscriptions
+                      Total Orders
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -93,15 +97,16 @@ export default function Dashboard() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
-                    <p className="text-xs text-muted-foreground">
-                      +180.1% from last month
-                    </p>
+                    <div className="text-2xl font-bold">
+                      {analysis?.total_orders}
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                    <CardTitle className="text-sm font-medium">
+                      Total Quantity
+                    </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -117,16 +122,15 @@ export default function Dashboard() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
-                    <p className="text-xs text-muted-foreground">
-                      +19% from last month
-                    </p>
+                    <div className="text-2xl font-bold">
+                      {analysis?.total_quantity}
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">
-                      Active Now
+                      Total Customers
                     </CardTitle>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -142,23 +146,30 @@ export default function Dashboard() {
                     </svg>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
-                    <p className="text-xs text-muted-foreground">
-                      +201 since last hour
-                    </p>
+                    <div className="text-2xl font-bold">
+                      {analysis?.total_customers}
+                    </div>
                   </CardContent>
                 </Card>
               </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
                 <Card className="col-span-4">
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
-                    <Overview />
+                    <Overview data={analysis?.month_wise_revenue} dataKey1={"month"} dataKey2={"revenue"}/>
                   </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card className="col-span-4">
+                  <CardHeader>
+                    <CardTitle>Overview</CardTitle>
+                  </CardHeader>
+                  <CardContent className="pl-2">
+                    <Overview data={analysis?.product_wise_revenue} dataKey1={"product_name"} dataKey2={"revenue"}/>
+                  </CardContent>
+                </Card>
+                <Card className="col-span-4">
                   <CardHeader>
                     <CardTitle>Recent Sales</CardTitle>
                   </CardHeader>
@@ -172,5 +183,5 @@ export default function Dashboard() {
         </div>
       </div>
     </>
-  )
+  );
 }

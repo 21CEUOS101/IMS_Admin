@@ -1,7 +1,7 @@
-
-import React, { useEffect, useState } from "react";
-import { getOrders } from "../../Services/OrderService";
-import Table from "../Custom_Components/Table";
+import Table from '../../Custom_Components/Table'
+import React, { useEffect, useState } from 'react'
+import { getReturnOrderByWarehouseId } from '../../Services/ReturnOrderService'
+import { useParams } from 'react-router-dom'
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
@@ -76,29 +76,28 @@ export const columns = [
   },
 ];
 
+const ReturnOrderByWManager = () => {
 
-const OrderTable = () => {
-  const [data, setData] = useState([]);
+    const id = useParams().id;
+    const [data, setData] = useState([])
 
-  const getAllOrders = async () => {
-    const response = await getOrders()
-      .then((response) => {
-        setData(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    const getAllOrders = async () => {
+        const response = await getReturnOrderByWarehouseId(id).then((response) => {
+            setData(response);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+  
+    useEffect(() => {
+        getAllOrders();
+    }, [])
 
-  useEffect(() => {
-    getAllOrders();
-  }, []);
-
-  return (
-    <>
-      <Table data={data} columns={columns} filterField={"status"} />
-    </>
+    return (
+        <>
+            {data !== null && (<Table columns={columns} data={data} filterField={"status"}/>)}
+        </>
   );
-};
+}
 
-export default OrderTable;
+export default ReturnOrderByWManager
