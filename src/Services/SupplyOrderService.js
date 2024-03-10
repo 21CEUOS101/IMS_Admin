@@ -52,7 +52,8 @@ export const deleteSupplyOrder = async (id) => {
 };
 
 export const getSupplyOrderBySupplierId = async (id) => {
-    const data = await Axios.get(`${url}/api/supplier/${id}/supply-order`, config).then((response) => {
+    const data = await Axios.get(`${url}/api/supplier/${id}/supply-orders`, config).then((response) => {
+        console.log(response);
         return response.data;
     });
 

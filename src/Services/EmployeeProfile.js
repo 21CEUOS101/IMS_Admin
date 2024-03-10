@@ -1,12 +1,12 @@
-import { getAdminById, updateAdmin } from "./AdminService";
-import { getCustomerById, updateCustomer } from "./CustomerService";
-import { getDeliveryManById, updateDeliveryMan } from "./DeliveryManService";
-import { getSupplierById, updateSupplier } from "./SupplierService";
-import { getWManagerById, updateWManager } from "./WManagerService";
+import { createAdmin, getAdminById, updateAdmin } from "./AdminService";
+import { createCustomer, getCustomerById, updateCustomer } from "./CustomerService";
+import { createDeliveryMan, getDeliveryManById, updateDeliveryMan } from "./DeliveryManService";
+import { createSupplier, getSupplierById, updateSupplier } from "./SupplierService";
+import { createWManager, getWManagerById, updateWManager } from "./WManagerService";
 
 export async function getEmployeeById(id) {
     
-    if(id === null) return null;
+    if(id === null) return { success: false , message: "Invalid Id"};
 
     let data = null;
     
@@ -25,8 +25,36 @@ export async function getEmployeeById(id) {
     else if (id[0] === "c") {
         data = await getCustomerById(id);
     }
+
+    return { ...data , success: true};
+
+}
+
+// create employee 
+export async function createEmployee(values) {
+    
+    let data = null;
+    
+    if (values.role === "admin") {
+        data = await createAdmin(values);
+    }
+    else if (values.role === "deliveryman") {
+        data = await createDeliveryMan(values);
+    }
+    else if (values.role === "supplier") {
+        data = await createSupplier(values);
+    }
+    else if (values.role === "wmanager") {
+        data = await createWManager(values);
+    }
+    else if (values.role === "customer") {
+        data = await createCustomer(values);
+    }
     console.log(data);
-    return data;
+
+    if(data === null) return { success: false , message: "Invalid Role"};
+
+    return { ...data , success: true};
 
 }
 

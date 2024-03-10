@@ -44,9 +44,14 @@ const checkLogin = async () => {
   const username = localStorage.getItem("email") || null;
   const password = localStorage.getItem("password") || null;
 
-  const response = await Login_F({ username, password }).then((response) => {
-    return response;
-  });
+  let response = { success: false };
+  console.log(username!==null && password!==null);
+  if (username!==null && password!==null) {
+    response = await Login_F({ username, password }).then((response) => {
+      return response;
+    });
+  }
+
   return response;
 };
 
@@ -56,8 +61,12 @@ function App() {
 
   useEffect(() => {
     checkLogin().then((response) => {
-      if (response.success) {
+      if (response?.success) {
         setIsLoggedIn(true);
+      }
+      else
+      {
+        setIsLoggedIn(false);
       }
     });
   }, []);

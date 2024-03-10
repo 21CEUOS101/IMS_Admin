@@ -51,8 +51,18 @@ export function LoginForm() {
         password: values.password,
       };
       await Login(data).then((response) => {
-        if (response.success) {
+        console.log(response);
+        if (response?.success) {
           setIsLoggedIn(true);
+        }
+        else
+        {
+          form.setError("password", {
+            type: "deps",
+            message: response?.message,
+          });
+          // console.log(response?.message);
+          setIsLoggedIn(false);
         }
       });
     }

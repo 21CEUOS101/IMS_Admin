@@ -11,13 +11,15 @@ const config = {
 };
 
 export const getAdminById = async (id) => {
+
+  if(!token) return { success: false, message: "Token not found" };
+
   const data = await Axios.get(`${url}/api/admin/${id}`, config).then(
     (response) => {
       return response.data;
     }
   );
-
-  return { ...data, role: "admin" };
+  return { ...data, role: "admin" , success : true };
 };
 
 export const getAdmins = async () => {
@@ -42,7 +44,6 @@ export const updateAdmin = async (admin, id) => {
   try {
     const data = await Axios.post(`${url}/api/admin/${id}`, admin, config).then(
       (response) => {
-        console.log(response.data);
         return response.data;
       }
     );
@@ -65,11 +66,14 @@ export const deleteAdmin = async (id) => {
 
 // get recent sales
 export const getRecentSales = async () => {
+
+  if(!token) return { success: false, message: "Token not found" };
+
   const data = await Axios.get(`${url}/api/admin/analytics/recent-sales`, config).then(
     (response) => {
       return response.data;
     }
   );
 
-  return data;
+  return { data : data , success: true };
 };

@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Form, FormMessage } from "../components/ui/form";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { createEmployee } from "../Services/EmployeeProfile";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -66,7 +67,7 @@ export function AddEmployeeForm() {
     },
   });
 
-  function onSubmit(values) {
+async function onSubmit(values) {
 
     if (values.role === "supplier") {
       delete values.warehouseId;
@@ -86,7 +87,14 @@ export function AddEmployeeForm() {
       }
     }
 
-    console.log(values);
+    await createEmployee(values).then((response) => {
+      if (response.success) {
+        form.reset();
+      } else {
+        console.log(response?.message);
+      }
+    });
+      
   }
 
   const time = new Date().getHours() < 12 ? "Morning" : "Afternoon";

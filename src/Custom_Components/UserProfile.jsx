@@ -10,6 +10,7 @@ import {
 import { EditProfile } from "./EditProfile";
 import { useEffect, useState } from "react";
 import { getEmployeeById } from "../Services/EmployeeProfile";
+import { Logout } from "../Services/AuthService";
 
 export function UserProfile() {
   const user_id = localStorage.getItem("id");
@@ -18,11 +19,12 @@ export function UserProfile() {
   const [refresh, setRefresh] = useState(false);
 
   const getData = async () => {
-    if (user_id) {
-      await getEmployeeById(user_id).then((response) => {
+    await getEmployeeById(user_id).then((response) => {
+      if (response?.success)
+      {
         setData(response);
-      });
-    }
+      }
+    });
   };
 
   useEffect(() => {
@@ -33,13 +35,13 @@ export function UserProfile() {
     }
   }, [refresh]);
 
-  return data ? (
+  return data !== undefined ? (
     <HoverCard>
       <HoverCardTrigger asChild>
         <Button variant="link">
           <Avatar>
             <AvatarFallback>
-              {data?.name !== null && data?.name[0]}
+              {data?.name ? data?.name[0] : "U"}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -82,6 +84,9 @@ export function UserProfile() {
                 setRefresh={setRefresh}
                 refresh={refresh}
               />
+            </div>
+            <div className="flex justify-between w-full">
+              <Button onClick={Logout}>Logout</Button>
             </div>
           </div>
         </div>

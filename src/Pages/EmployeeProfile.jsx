@@ -11,6 +11,29 @@ import {
 } from "../components/ui/card";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEmployeeById } from "../Services/EmployeeProfile";
+import Axios from "axios";
+
+// get ongoing order of delivery man 
+async function getOngoingOrder(delivery_man_id)
+{
+  // make a request to get ongoing order
+  return await Axios.get(`http://localhost:3001/deliveryman/${delivery_man_id}/current-order`).then((response) => {
+    let ongoing_order = null;
+    for (const [key, value] of Object.entries(response.data)) {
+      console.log(key, value);
+      if(value.length >= 1)
+      {
+        ongoing_order = {
+          type: key,
+          id: value[0]
+        }
+        break;
+      }
+    }
+    return ongoing_order;
+  });
+    
+}
 
 export function EmployeeProfile() {
   const navigate = useNavigate();
@@ -111,8 +134,10 @@ export function EmployeeProfile() {
                   employee?.role === "deliveryman" && (
                     <Button
                       variant="outline"
-                      onClick={() => {
-                        navigate(`/view/${employee?.role}/${id}/ongoing-order`);
+                      onClick={async() => {
+                        let ongoing_order = await getOngoingOrder(id).then((response) => {
+                          navigate(`/view-order/${response?.type}/${response?.id}`);
+                        });
                       }}
                     >
                       Check Ongoing Order

@@ -32,12 +32,12 @@ export const columns = [
     },
   },
   {
-    accessorKey: "customerId",
-    header: "Customer Id",
+    accessorKey: "warehouse_id",
+    header: "Warehouse Id",
     cell: (row) => {
       return (
         <div className="font-mono text-gray-700">
-          {row.getValue("customerId")}
+          {row.getValue("warehouse_id")}
         </div>
       );
     },
@@ -67,9 +67,6 @@ export const columns = [
         <div className=" p-0 m-0 flex items-center justify-center gap-x-4">
           <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/view-order/supply-order/${row.getValue("id")}`}>
             View
-          </Link>
-          <Link className="font-mono inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" to={`/update/supply-order/${row.getValue("id")}`}>
-            Update
           </Link>
         </div>
       );

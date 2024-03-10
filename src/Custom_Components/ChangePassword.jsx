@@ -18,7 +18,7 @@ export function ChangePassword() {
 
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-
+    const email = localStorage.getItem('email');
     const handleOldPasswordChange = (e) => {
         setOldPassword(e.target.value);
     }
@@ -31,6 +31,7 @@ export function ChangePassword() {
         e.preventDefault();
         console.log('Old Password:', oldPassword);
         console.log('New Password:', newPassword);
+        console.log('Email:', email);
 
         // old and new Password should not be empty
         if (!oldPassword || !newPassword) {
@@ -44,7 +45,7 @@ export function ChangePassword() {
             return;
         }
 
-        await change_Password({ oldPassword, newPassword }).then((response) => {
+        await change_Password({ email, oldPassword, newPassword }).then((response) => {
             console.log(response);
             setOldPassword('');
             setNewPassword('');

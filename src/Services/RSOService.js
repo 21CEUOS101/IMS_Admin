@@ -61,7 +61,7 @@ export const deleteRSO = async (id) => {
 };
 
 export const getRSOBySupplierId = async (id) => {
-  const data = await Axios.get(`${url}/api/supplier/${id}/return-supply-order`, config).then(
+  const data = await Axios.get(`${url}/api/supplier/${id}/return-supply-orders`, config).then(
     (response) => {
       return response.data;
     }
