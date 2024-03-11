@@ -1,1 +1,1 @@
-export const url = "http://localhost:8080"
+export const url = "https://ashish2901-ims.onrender.com"
