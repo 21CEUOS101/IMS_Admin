@@ -119,8 +119,7 @@ export function EmployeeProfile() {
                     Go to WareHouse
                   </Button>
                 )}
-                {(employee?.role === "deliveryman" ||
-                  employee?.role === "customer") && (
+                {(employee?.role === "customer") && (
                   <Button
                     variant="outline"
                     onClick={() => {
