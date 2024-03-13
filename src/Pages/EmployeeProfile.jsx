@@ -17,7 +17,7 @@ import Axios from "axios";
 async function getOngoingOrder(delivery_man_id)
 {
   // make a request to get ongoing order
-  return await Axios.get(`http://localhost:3001/deliveryman/${delivery_man_id}/current-order`).then((response) => {
+  return await Axios.get(`https://ashish2901-analytics-api.onrender.com/deliveryman/${delivery_man_id}/current-order`).then((response) => {
     let ongoing_order = null;
     for (const [key, value] of Object.entries(response.data)) {
       console.log(key, value);
