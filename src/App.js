@@ -1,3 +1,18 @@
+/*
+ * @file App.js
+ * @author Ashish H. Prajapati (prajapatiashish40567@gmail.com)
+ * @brief Main file for the application to handle routing and context API 
+ * 
+ * @details This file is the main file for the application. It handles the routing and context API for the application.
+ *          It also checks if the user is logged in or not and then renders the components accordingly.
+ *          If the user is not logged in, it will redirect the user to the login page.
+ *
+ * @version 0.1
+ * @date 14th March 2024
+ *
+ * @history 14th March 2021 Finalized the file for version 0.1
+ */
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -37,15 +52,17 @@ import RSOBySupplier from "./Pages/Supplier/RSOBySupplier";
 import W2WOrderByWManager from "./Pages/WManager/W2WOrderByWManager";
 import { ViewOrder } from "./Pages/ViewOrder";
 
+// context API to check if the user is logged in or not
 export const AppContext = createContext();
 
+// function to check if the user is logged in or not
 const checkLogin = async () => {
 
   const username = localStorage.getItem("email") || null;
   const password = localStorage.getItem("password") || null;
 
   let response = { success: false };
-  console.log(username!==null && password!==null);
+
   if (username!==null && password!==null) {
     response = await Login_F({ username, password }).then((response) => {
       return response;
@@ -61,13 +78,10 @@ function App() {
 
   useEffect(() => {
     checkLogin().then((response) => {
-      if (response?.success) {
+      if (response?.success)
         setIsLoggedIn(true);
-      }
       else
-      {
         setIsLoggedIn(false);
-      }
     });
   }, []);
 
@@ -97,7 +111,6 @@ function App() {
               <Route path="/product/add" element={<AddProduct />} />
               <Route path="/update">
                 <Route path="employee/:id" element={<UpdateEmployee />} />
-                <Route path="order/:id" element={<h1>Update Order</h1>} />
                 <Route path="product/:id" element={<UpdateProduct/>} />
               </Route>
               <Route path="/view" >
@@ -108,9 +121,7 @@ function App() {
                   <Route path=":id/return-supply-orders" element={<RSOBySupplier/>} />
                 </Route>
                 <Route path="delivery-man" >
-                  <Route path=":id" element={<EmployeeProfile />} >
-                    <Route path="orders" element={<h1>Delivery Man Orders</h1>} />
-                  </Route>
+                  <Route path=":id" element={<EmployeeProfile />} />
                 </Route>
                 <Route path="wmanager" >
                   <Route path=":id" element={<EmployeeProfile />} />

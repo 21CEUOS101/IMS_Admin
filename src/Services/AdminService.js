@@ -1,3 +1,18 @@
+/*
+ * @file AdminService.js
+ * @author Ashish H. Prajapati (prajapatiashish40567@gmail.com)
+ * @brief Service file to handle all the admin related services
+ *
+ * @details This file is the service file to handle all the admin related services. It includes all the services related to the admin.
+ *          It includes services to get admin by id, get all admins, create admin, update admin and delete admin.
+ *          It also includes service to get recent sales.
+ *
+ * @version 0.1
+ * @date 14th March 2024
+ *
+ * @history 14th March 2021 Finalized the file for version 0.1
+ */
+
 import Axios from "axios";
 import { url } from "./index.js";
 

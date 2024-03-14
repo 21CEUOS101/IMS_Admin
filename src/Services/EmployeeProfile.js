@@ -1,3 +1,17 @@
+/*
+ * @file EmployeeProfile.js
+ * @author Ashish H. Prajapati (prajapatiashish40567@gmail.com)
+ * @brief Service file to handle all the employee related services
+ *
+ * @details This file is the service file to handle all the employee related services. It includes all the services related to the employee.
+ *         It includes services to get employee by id, create employee, update employee and delete employee.
+ *
+ * @version 0.1
+ * @date 14th March 2024
+ *
+ * @history 14th March 2021 Finalized the file for version 0.1
+ */
+
 import { createAdmin, getAdminById, updateAdmin } from "./AdminService";
 import { createCustomer, getCustomerById, updateCustomer } from "./CustomerService";
 import { createDeliveryMan, getDeliveryManById, updateDeliveryMan } from "./DeliveryManService";
