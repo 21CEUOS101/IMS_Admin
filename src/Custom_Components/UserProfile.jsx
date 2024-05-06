@@ -68,16 +68,6 @@ export function UserProfile() {
             <p className="text-muted-foreground text-sm shadcn-light">
               {data?.phone}
             </p>
-            {role !== "admin" && (
-              <>
-                <small className="text-sm font-medium leading-none">
-                  Address :
-                </small>
-                <p className="text-muted-foreground text-sm shadcn-light">
-                  {JSON.stringify(data)}
-                </p>
-              </>
-            )}
             <div className="w-full">
               <EditProfile
                 employee={data}

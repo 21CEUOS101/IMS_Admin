@@ -10,6 +10,7 @@ const WMangerTable = () => {
 
     const getAllWManagers = async () => {
         const response = await getWMans().then((response) => {
+            console.log(response);
             setData(response);
         }).catch((err) => {
             console.log(err);

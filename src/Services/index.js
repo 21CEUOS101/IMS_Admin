@@ -12,4 +12,5 @@
  * @history 14th March 2021 Finalized the file for version 0.1
  */
 
-export const url = "https://ashish2901-ims.onrender.com"
+// export const url = "https://ashish2901-ims.onrender.com"
+export const url = "http://localhost:8080"

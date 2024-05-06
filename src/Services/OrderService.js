@@ -1,3 +1,23 @@
+/*
+ * @file [Filename.extension]
+ * @author [Your Name] ([Your Email] - optional)
+ * @brief A concise description of the file's purpose
+ *
+ * @details (Optional) Provide more elaborate details about the functionality
+ *          implemented in this file. This could include:
+ *          - Key algorithms or data structures used
+ *          - Assumptions or dependencies
+ *          - Non-obvious behaviors
+ *
+ * @version [Version Number] (e.g., 1.0.0)
+ * @date [Creation Date] (e.g., 2024-03-14)
+ *
+ * @copyright [Copyright Statement] (Optional, but recommended)
+ *
+ * @history (Optional) List significant changes made to the file, with
+ *          versions, dates, and brief descriptions.
+ */
+
 import Axios from "axios";
 import { url } from "./index.js";
 

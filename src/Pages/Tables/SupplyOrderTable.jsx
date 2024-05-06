@@ -5,6 +5,7 @@ import { getSupplyOrders } from '../../Services/SupplyOrderService'
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Link } from "react-router-dom";
+import { DataTable } from '../../Orders/data-table';
 
 
 export const columns = [
@@ -91,7 +92,15 @@ const SupplyOrderTable = () => {
 
     return (
         <>
-            {data !== null && (<Table columns={columns} data={data} filterField={"status"}/>)}
+            {data !== null && (
+        <div className="flex-col">
+          <div className="flex-1 space-y-4 p-8 pt-6">
+            <div className="container mx-auto py-10">
+              <DataTable columns={columns} data={data} filterField={"status"}/>
+            </div>
+          </div>
+        </div>
+      )}
         </>
   );
 }

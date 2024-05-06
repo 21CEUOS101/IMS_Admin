@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [analysis, setAnalysis] = React.useState();
 
   const getAnalysis = async () => {
-    await Axios.get("https://ashish2901-analytics-api.onrender.com/get-analytics").then((response) => {
+    await Axios.get("http://127.0.0.1:5001/get-analytics").then((response) => {
       setAnalysis(response.data);
     });
   };
@@ -155,7 +155,7 @@ export default function Dashboard() {
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
                 <Card className="col-span-4">
                   <CardHeader>
-                    <CardTitle>Overview</CardTitle>
+                    <CardTitle>Month wise Revenue</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
                     <Overview data={analysis?.month_wise_revenue} dataKey1={"month"} dataKey2={"revenue"}/>
@@ -163,7 +163,7 @@ export default function Dashboard() {
                 </Card>
                 <Card className="col-span-4">
                   <CardHeader>
-                    <CardTitle>Overview</CardTitle>
+                    <CardTitle>Product wise Revenue</CardTitle>
                   </CardHeader>
                   <CardContent className="pl-2">
                     <Overview data={analysis?.product_wise_revenue} dataKey1={"product_name"} dataKey2={"revenue"}/>
