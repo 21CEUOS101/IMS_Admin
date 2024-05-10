@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [analysis, setAnalysis] = React.useState();
 
   const getAnalysis = async () => {
-    await Axios.get("http://127.0.0.1:5001/get-analytics").then((response) => {
+    await Axios.get("https://ashish2901-analytics-api.onrender.com/get-analytics").then((response) => {
       setAnalysis(response.data);
     });
   };
